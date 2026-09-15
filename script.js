@@ -84,27 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const activeTrailPhotos = [];
   let previousTrailPoint;
   let trailImageIndex = 0;
-  let restingTrailPhoto;
-  let trailStopTimer;
-
-  function clearRestingTrailPhoto() {
-    clearTimeout(trailStopTimer);
-    if (!restingTrailPhoto) return;
-    restingTrailPhoto.remove();
-    const photoPosition = activeTrailPhotos.indexOf(restingTrailPhoto);
-    if (photoPosition !== -1) activeTrailPhotos.splice(photoPosition, 1);
-    restingTrailPhoto = undefined;
-  }
-
-  function holdLastTrailPhoto() {
-    clearTimeout(trailStopTimer);
-    trailStopTimer = window.setTimeout(() => {
-      const latestPhoto = activeTrailPhotos.at(-1);
-      if (!latestPhoto) return;
-      latestPhoto.classList.add('is-resting');
-      restingTrailPhoto = latestPhoto;
-    }, 140);
-  }
 
   function createTrailPhoto(event) {
     if (event.pointerType && event.pointerType !== 'mouse') return;
@@ -144,11 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bounds = hero.getBoundingClientRect();
     previousTrailPoint = { x: event.clientX - bounds.left, y: event.clientY - bounds.top };
   });
-  hero.addEventListener('pointermove', (event) => {
-    clearRestingTrailPhoto();
-    createTrailPhoto(event);
-    holdLastTrailPhoto();
-  });
+  hero.addEventListener('pointermove', createTrailPhoto);
   hero.addEventListener('pointerleave', () => { previousTrailPoint = undefined; });
 
   document.querySelectorAll('.project-card[data-card-url]').forEach((card) => {
