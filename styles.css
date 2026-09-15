@@ -75,6 +75,7 @@ main[id], section[id], .section-heading[id] { scroll-margin-top: calc(var(--head
 }
 .cursor-trail-photo img { display: block; width: 100%; height: 164px; object-fit: cover; }
 .cursor-trail-photo figcaption { display: grid; height: 20px; place-items: center; color: #111; font-family: 'Nothing You Could Do', cursive; font-size: 10px; white-space: nowrap; }
+.cursor-trail-photo.is-resting { animation: none; opacity: 1; transform: translate(-50%, -50%) rotate(var(--rotation)) scale(1); }
 .name-banner {
   position: relative;
   width: fit-content;
