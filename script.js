@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { src: 'public/assets/memory-baby.png', caption: 'Dreams begin early' },
     { src: 'public/assets/memory-beach.png', caption: 'Exploring. Growing.' },
     { src: 'public/assets/memory-trophy.png', caption: 'Moments of hard work' },
+    { src: 'public/assets/memory-portrait.png', caption: 'Becoming Who I Am' },
   ];
   const activeTrailPhotos = [];
   let previousTrailPoint;
