@@ -24,6 +24,11 @@ window.addEventListener('pageshow', (event) => {
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('is-ready');
 
+  const hashTarget = window.location.hash && document.querySelector(window.location.hash);
+  if (hashTarget) {
+    requestAnimationFrame(() => hashTarget.scrollIntoView({ block: 'start' }));
+  }
+
   const skills = document.querySelector('.skills');
   if (skills && !document.querySelector('.skills-secondary')) {
     const tools = [...skills.querySelectorAll('.ticker-group .tool')];
