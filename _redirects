@@ -1,0 +1,7 @@
+# Clean case-study URLs for Netlify static hosting.
+/8answers             /8answers.html   200
+/8answers/            /8answers.html   200
+/whatihad.info        /whatihad.html   200
+/whatihad.info/       /whatihad.html   200
+/yard_deck            /yard-deck.html  200
+/yard_deck/           /yard-deck.html  200
