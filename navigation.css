@@ -1,5 +1,12 @@
 .menu-toggle { display: none; }
 
+/* Shared native smooth scrolling for every portfolio page. */
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 @media (max-width: 850px) {
   .site-header { z-index: 50; }
   .menu-toggle { position: fixed; z-index: 60; top: 12px; right: 15px; display: grid !important; width: 34px; height: 34px; padding: 8px 6px; place-content: center; gap: 5px; border: 0; color: #fffff7; background: #000; cursor: pointer; }
