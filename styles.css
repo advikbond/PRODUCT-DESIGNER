@@ -213,6 +213,11 @@ body.is-ready .intro { opacity: 1; }
   .work { width: calc(100% - 30px); padding: var(--hero-section-gap) 0; }.section-heading h2 { font-size: 16px; letter-spacing: .4em; }.project-list { gap: 72px; padding: 24px 0 0; }.project-card { grid-template-columns: 1fr; gap: 20px; min-height: 0; padding: 0; margin-inline: 0; }.project-visual { height: min(61vw, 484px); }.project-copy { height: auto; min-height: 310px; gap: 28px; }.project-title { gap: 8px; margin-bottom: 18px; }.project-mark { flex-basis: 46px; width: 46px; height: 46px; }.project-title h3, .project-description, .project-tags li, .project-link { font-size: clamp(15px, 3.6vw, 21px); }.project-title p { font-size: clamp(12px, 2.88vw, 16.8px); }.project-description { margin-bottom: 18px; letter-spacing: .02em; }.project-tags { gap: 10px; }.project-tags li { padding: 4px 10px; }.project-link { min-height: 36px; }
   .contact { width: calc(100% - 30px); margin-bottom: var(--hero-section-gap); gap: 24px; }.contact > h2 { font-size: 38px; }.contact-link { min-width: 0; width: min(100%, 560px); height: 62px; gap: 10px; padding: 4px 12px; font-size: clamp(16px, 4vw, 22px); }.contact-arrow { flex-basis: 28px; width: 18px; height: 21px; }.gmail-mark { flex-basis: 30px; width: 30px; height: 23px; }.linkedin-mark { flex-basis: 30px; width: 30px; height: 23px; font-size: 18px; }.contact > p { font-size: 25px; }.contact > p:nth-last-child(2) { margin-top: -8px; }
   footer { min-height: 120px; padding: 18px 15px; }.footer-monogram { width: 84px; height: 84px; font-size: 46px; }.footer-copy { min-height: 84px; margin-left: 16px; font-size: 11px; }.back-to-top { width: 22px; height: 26px; }
+  .project-card.is-in-view:nth-child(5n + 1) { background: rgb(12 140 233 / 10%); }
+  .project-card.is-in-view:nth-child(5n + 2) { background: rgb(250 159 160 / 20%); }
+  .project-card.is-in-view:nth-child(5n + 3) { background: rgb(0 0 0 / 10%); }
+  .project-card.is-in-view:nth-child(5n + 4) { background: rgb(12 140 233 / 10%); }
+  .project-card.is-in-view:nth-child(5n) { background: rgb(250 159 160 / 20%); }
 }
 @media (min-width: 851px) and (max-width: 1320px) {
   .project-card { grid-template-columns: minmax(380px, 1.1fr) minmax(0, .9fr); gap: clamp(24px, 3vw, 40px); }

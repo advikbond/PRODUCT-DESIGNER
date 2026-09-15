@@ -155,6 +155,27 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', () => sessionStorage.setItem(homeScrollKey, String(window.scrollY)));
   });
 
+  const projectCards = [...document.querySelectorAll('.project-card')];
+  const mobileCards = window.matchMedia('(max-width: 850px)');
+  let cardObserver;
+
+  function updateMobileCardHighlight() {
+    cardObserver?.disconnect();
+    projectCards.forEach((card) => card.classList.remove('is-in-view'));
+    if (!mobileCards.matches) return;
+
+    cardObserver = new IntersectionObserver((entries) => {
+      const centredCard = entries.find((entry) => entry.isIntersecting)?.target;
+      if (!centredCard) return;
+      projectCards.forEach((card) => card.classList.toggle('is-in-view', card === centredCard));
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+    projectCards.forEach((card) => cardObserver.observe(card));
+  }
+
+  mobileCards.addEventListener('change', updateMobileCardHighlight);
+  updateMobileCardHighlight();
+
   const headerLinks = [...document.querySelectorAll('.site-header nav a')];
   const navSections = headerLinks
     .map((link) => ({ link, section: link.hash ? document.querySelector(link.hash) : null }))
