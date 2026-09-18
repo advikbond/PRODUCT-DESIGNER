@@ -10,6 +10,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; background: #000; overscroll-behavior-y: none; }
 body {
+  position: relative;
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
@@ -50,13 +51,70 @@ nav a:hover, nav a:focus-visible, nav a.active { border-color: #000; color: #000
 main[id], section[id], .section-heading[id] { scroll-margin-top: calc(var(--header-height) + 16px); }
 #work { scroll-margin-top: calc(var(--header-height) + 32px); }
 
+/* The ropes are anchored to the banner, so their inset remains correct at every width. */
+.banner-threads {
+  position: absolute;
+  z-index: 0;
+  top: calc(20px - var(--header-height) - var(--hero-section-gap));
+  left: 0;
+  width: 100%;
+  height: calc(var(--header-height) + var(--hero-section-gap) - 20px);
+  pointer-events: none;
+}
+.banner-threads span {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  height: 100%;
+  background: #000;
+}
+.banner-threads span:first-child { left: 5.4%; }
+.banner-threads span:last-child { right: 5.4%; }
+.banner-threads span::after {
+  position: absolute;
+  right: -2px;
+  bottom: 0;
+  width: 5px;
+  height: 12px;
+  border-radius: 1px 1px 0 0;
+  background: #858580;
+  content: '';
+}
+
+@media (min-width: 851px) {
+  /* Desktop home, before the visitor has scrolled: match the open Figma composition. */
+  body.home-at-top .site-header {
+    background: transparent;
+    border-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  body.home-at-top .site-header nav {
+    position: absolute;
+    top: 32px;
+    right: 24px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 35px;
+  }
+  body.home-at-top .site-header nav a {
+    padding: 0 8px 9px;
+  }
+  body .name-banner {
+    scale: 1;
+    translate: 0 -25px;
+    margin-bottom: -21px;
+  }
+  .eyelet { display: none; }
+}
+
 .hero {
   position: relative;
   isolation: isolate;
   display: grid;
-  padding: var(--hero-section-gap) 0 0;
+  padding: calc(var(--hero-section-gap) - 20px) 0 0;
   place-items: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .identity { position: relative; z-index: 1; width: min(100% - 32px, 1000px); text-align: center; }
@@ -205,8 +263,32 @@ body.is-ready .intro { opacity: 1; }
   :root { --header-height: 58px; --skills-height: 52.5px; --hero-section-gap: 110px; }
   .site-header { padding: 0 15px; }.monogram { width: 34px; height: 34px; font-size: 20px; }
   nav { gap: 13px; } nav a { font-size: 13px; padding: 20px 0 9px; } nav a:nth-child(3), nav a:nth-child(4) { display: none; }
+  .banner-threads {
+    top: calc(0px - var(--header-height) - var(--hero-section-gap) - 48px);
+    height: calc(var(--header-height) + var(--hero-section-gap) + 48px);
+  }
+  .banner-threads span { display: none; }
+  .banner-threads span:first-child {
+    display: block;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+  /* At the very top, let the centered rope visibly cross the burger header. */
+  body.home-at-top .hero { z-index: 61; }
+  body.home-at-top .banner-threads span:first-child::before {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 50vw;
+    width: 1px;
+    height: var(--header-height);
+    background: #000;
+    content: '';
+    transform: translateX(-50%);
+  }
   .hero { padding: calc(var(--hero-section-gap) + 48px) 0 var(--hero-section-gap); justify-items: center; }
-  .identity { display: flex; width: calc(100% - 20px); flex-direction: column; align-items: center; text-align: center; }.name-banner { padding: 20px 23px 12px; min-width: 0; width: fit-content; max-width: 100%; margin-bottom: -27px; }.name-banner h1 { font-size: clamp(40px, 11.6vw, 72px); }.name-banner p { margin-top: 13px; font-size: clamp(8px, 2.1vw, 13px); letter-spacing: .18em; }.eyelet { top: 5px; width: 13px; height: 13px; border-width: 4px; }.eyelet-left { left: 5px; }.eyelet-right { right: 5px; }
+  .identity { display: flex; width: calc(100% - 20px); flex-direction: column; align-items: center; text-align: center; }.name-banner { padding: 20px 23px 12px; min-width: 0; width: fit-content; max-width: 100%; margin-bottom: -27px; }.name-banner h1 { font-size: clamp(40px, 11.6vw, 72px); }.name-banner p { margin-top: 13px; font-size: clamp(8px, 2.1vw, 13px); letter-spacing: .18em; }.eyelet { display: none; }
   .cursor-trail-photo { width: 124.8px; padding: 4px 4px 3px; box-shadow: 4px 3px 2px rgb(0 0 0 / 18%); }
   .cursor-trail-photo img { height: 126px; }.cursor-trail-photo figcaption { height: 16px; font-size: 8px; }
   .intro { display: flex; width: 100%; flex-direction: column; align-items: center; margin-top: 20px; }.tag-list { width: 100%; gap: 9px 10px; max-width: 620px; }.tag { padding: 5px 8px; font-size: clamp(11px, 3vw, 17px); }.intro > p { white-space: normal; margin: 20px auto 0; max-width: 96%; font-size: clamp(12px, 3.2vw, 17px); line-height: 1.15; text-align: center; }

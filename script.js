@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const hashTarget = window.location.hash && document.querySelector(window.location.hash);
   if (hashTarget) {
-    requestAnimationFrame(() => hashTarget.scrollIntoView({ block: 'start' }));
+    requestAnimationFrame(() => hashTarget.scrollIntoView({ block: 'start', behavior: 'instant' }));
   }
 
   const skills = document.querySelector('.skills');
@@ -213,6 +213,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function updateTopHomeHeader() {
+    document.body.classList.toggle(
+      'home-at-top',
+      window.scrollY <= 1,
+    );
+  }
+
   function stopHeaderNavigationScroll() {
     isHeaderNavigationScrolling = false;
     clearTimeout(scrollSettleTimer);
@@ -231,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.addEventListener('scroll', () => {
+    updateTopHomeHeader();
     if (!isHeaderNavigationScrolling) {
       updateActiveNavLink();
       return;
@@ -240,7 +248,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
   window.addEventListener('wheel', stopHeaderNavigationScroll, { passive: true });
   window.addEventListener('touchstart', stopHeaderNavigationScroll, { passive: true });
-  window.addEventListener('resize', updateActiveNavLink);
-  updateActiveNavLink();
+  window.addEventListener('resize', () => {
+    updateTopHomeHeader();
+    updateActiveNavLink();
+  });
+  window.addEventListener('hashchange', updateActiveNavLink);
+  updateTopHomeHeader();
+  const initialHashLink = headerLinks.find((link) => link.hash === window.location.hash);
+  if (initialHashLink) setActiveNavLink(initialHashLink);
+  else updateActiveNavLink();
 
 });
